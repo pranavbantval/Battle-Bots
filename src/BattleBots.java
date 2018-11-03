@@ -21,6 +21,7 @@ public class BattleBots {
 		frame.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		frame.pack();
 		frame.setVisible(true);
+		frame.addKeyListener(gamepanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gamepanel.startGame();
 	}

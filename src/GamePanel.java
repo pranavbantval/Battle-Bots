@@ -1,5 +1,7 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,12 +16,13 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements MouseListener, ActionListener, KeyListener {
 	// member variables
 	Timer timer;
+	int currentState = 0;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
-	final int INSTRUCTIONS = 3;
-	int current_state = 0;
-
+	final int INSTRUCTIONS = 4;
+	Font titleFont = new Font("Times New Roman", Font.PLAIN, 48);
+	Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 25);
 	// constructor
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -31,48 +34,62 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 		timer.start();
 
 	}
-
+	
+	public void buttons() {
+		
+		
+	}
 	// draw/update state methods
-	public void updateMenuState() {
 
+	public void updateMenuState() {
+	
 	}
 
+	
 	public void updateGameState() {
 
 	}
 
-	public void updateEndState() {
 
+	public void updateEndState() {
+	
 	}
 
-	public void updateInstructions() {
 
+	public void updateInstructions() {
+	
 	}
 
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
-		// g.setFont(titleFont);
+		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("BATTLE BOTS", 20, 200);
-		// g.setFont(subtitleFont);
-		g.drawString("Press ENTER to start", 120, 350);
-		g.drawString("Press SPACE for instructions", 120, 450);
+		g.drawString("BATTLE BOTS", 340, 200);
+		g.setFont(subtitleFont);
+		g.drawString("Press ENTER to start", 375, 300);
+		g.drawString("Press SPACE for instructions", 345, 400);
 	}
 
 	public void drawInstructions(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
-		g.drawString("LEFT-CLICK on robot buttons and upgrade button to buy them", 120, 350);
-		g.drawString("Press SPACE to return", 120, 450);
+		g.setFont(subtitleFont);
+		g.setColor(Color.BLACK);
+		g.drawString("LEFT-CLICK on a button to buy the item", 290, 200);
+		g.drawString("Press SPACE to return", 370, 300);
 	}
 
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setColor(Color.BLUE);
-		g.fillRect(800, 30, 100, 400);
-		g.fillRect(100, 30, 100, 400);
+		g.fillRect(800, 180, 100, 300);
+		g.fillRect(100, 180, 100, 300);
+	g.setColor(Color.WHITE);
+	g.fillRect(450, 450, 50, 50);
+	g.fillRect(510, 450, 50, 50);
+	g.fillRect(350, 450, 50, 50);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -81,12 +98,14 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	}
 
 	public void paintComponent(Graphics g) {
-		if (current_state == MENU_STATE) {
+		if (currentState == MENU_STATE) {
 			drawMenuState(g);
-		} else if (current_state == GAME_STATE) {
+		} else if (currentState == GAME_STATE) {
 			drawGameState(g);
-		} else if (current_state == END_STATE) {
+		} else if (currentState == END_STATE) {
 			drawEndState(g);
+		} else if (currentState == INSTRUCTIONS) {
+		drawInstructions(g);
 		}
 	}
 
@@ -94,13 +113,6 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
-		if (current_state == END_STATE) {
-			current_state = MENU_STATE;
-
-		} else {
-			current_state++;
-		}
 
 	}
 
@@ -131,11 +143,11 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (current_state == MENU_STATE) {
+		if (currentState == MENU_STATE) {
 			updateMenuState();
-		} else if (current_state == GAME_STATE) {
+		} else if (currentState == GAME_STATE) {
 			updateGameState();
-		} else if (current_state == END_STATE) {
+		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
 		repaint();
@@ -144,26 +156,29 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (current_state == END_STATE) {
-				current_state = MENU_STATE;
+			if (currentState == END_STATE) {
+				currentState = MENU_STATE;
 
 			} else {
-				current_state++;
+				currentState++;
+				System.out.println(currentState);
+				repaint();
 			}
 
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (current_state == INSTRUCTIONS) {
-				current_state = MENU_STATE;
+			if (currentState == INSTRUCTIONS) {
+				currentState = MENU_STATE;
 			} else {
-				current_state = INSTRUCTIONS;
+				currentState = INSTRUCTIONS;
 			}
 		}
 	}
@@ -171,7 +186,8 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
+	
 	}
 
 }
