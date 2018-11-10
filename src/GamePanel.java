@@ -13,14 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements MouseListener, ActionListener, KeyListener {
+public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	// member variables
 	Timer timer;
 	int currentState = 0;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
-	final int INSTRUCTIONS = 4;
+	final int INSTRUCTIONS = 3;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 48);
 	Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 25);
 	// constructor
@@ -35,10 +35,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
 	}
 	
-	public void buttons() {
-		
-		
-	}
+	
 	// draw/update state methods
 
 	public void updateMenuState() {
@@ -87,8 +84,10 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 		g.fillRect(800, 180, 100, 300);
 		g.fillRect(100, 180, 100, 300);
 	g.setColor(Color.WHITE);
-	g.fillRect(450, 450, 50, 50);
+	g.fillRect(410, 450, 50, 50);
+	g.setColor(Color.black);
 	g.fillRect(510, 450, 50, 50);
+	g.setColor(Color.green);
 	g.fillRect(350, 450, 50, 50);
 	}
 
@@ -109,36 +108,8 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 		}
 	}
 
-	// mouse event methods & action listener
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	//  key methods & action listener
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -162,7 +133,10 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+if(currentState >=3) {
+	currentState = 0;
+}
+else {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END_STATE) {
 				currentState = MENU_STATE;
@@ -172,7 +146,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 				System.out.println(currentState);
 				repaint();
 			}
-
+if(currentState == 0 || currentState == 3) {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (currentState == INSTRUCTIONS) {
@@ -182,7 +156,23 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 			}
 		}
 	}
-
+		if(currentState == 2) {
+			if(e.getKeyCode() == KeyEvent.VK_1) {
+				System.out.println("Robo one spawn code here");
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_2) {
+				System.out.println("Robo 2 spawn code here");
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_2) {
+				System.out.println("Upgrade robots code here");
+			}
+			/*else if(e.getKeyCode()==KeyEvent.VK_4) {
+				System.out.println("Laser shot code here");
+			}
+			*/
+		}
+}
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

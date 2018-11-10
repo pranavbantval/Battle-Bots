@@ -28,7 +28,7 @@ public class BattleBots {
 
 	public void createUI() {
 		setup();
-		frame.addMouseListener(gamepanel);
+		
 
 	}
 
