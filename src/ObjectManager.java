@@ -36,5 +36,14 @@ public class ObjectManager {
 			}
 		
 		}
+	public	void addRobotron(int x, int y,  int width, int height) {
+			robotrons.add(new Robotron(x, y, width, height));
+		}
+	public	void addIronFist(int x, int y,  int width, int height) {
+		ironfists.add(new IronFist(x, y, width, height));
+	}
+	public	void addEnemy(int x, int y,  int width, int height) {
+		enemies.add(new Enemy(x, y, width, height));
+	}
 	
 }

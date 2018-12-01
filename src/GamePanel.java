@@ -23,10 +23,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int INSTRUCTIONS = 3;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 48);
 	Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 25);
-	// constructor
+ObjectManager sam = new ObjectManager();
+Timer ptimer;
+// constructor
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
-
+ptimer = new Timer(1000/60, this);
 	}
 
 	// methods
@@ -34,27 +36,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 
 	}
-	
-	
+
 	// draw/update state methods
 
 	public void updateMenuState() {
-	
+
 	}
 
-	
 	public void updateGameState() {
-
+sam.update();
 	}
-
 
 	public void updateEndState() {
-	
+
 	}
 
-
 	public void updateInstructions() {
-	
+
 	}
 
 	public void drawMenuState(Graphics g) {
@@ -73,8 +71,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(subtitleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("LEFT-CLICK on a button to buy the item", 290, 200);
-		g.drawString("Press SPACE to return", 370, 300);
+		g.drawString("Press keys 1 and 2 to buy robots ", 320, 200);
+		g.drawString("Press key 3 to upgrade the robots", 320, 300);
+		g.drawString("Press SPACE to return", 370, 400);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -83,12 +82,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLUE);
 		g.fillRect(800, 180, 100, 300);
 		g.fillRect(100, 180, 100, 300);
-	g.setColor(Color.WHITE);
-	g.fillRect(410, 450, 50, 50);
-	g.setColor(Color.black);
-	g.fillRect(510, 450, 50, 50);
-	g.setColor(Color.green);
-	g.fillRect(350, 450, 50, 50);
+		g.setColor(Color.WHITE);
+		g.fillRect(410, 450, 50, 50);
+		g.setColor(Color.black);
+		g.fillRect(510, 450, 50, 50);
+		g.setColor(Color.green);
+		g.fillRect(350, 450, 50, 50);
+		sam.draw(g);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -104,12 +104,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END_STATE) {
 			drawEndState(g);
 		} else if (currentState == INSTRUCTIONS) {
-		drawInstructions(g);
+			drawInstructions(g);
 		}
 	}
 
-	//  key methods & action listener
-	
+	// key methods & action listener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -127,57 +126,56 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-if(currentState >=3) {
-	currentState = 0;
-}
-else {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (currentState == END_STATE) {
-				currentState = MENU_STATE;
+		if (currentState >= 3) {
+			currentState = 0;
+		} else {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (currentState == END_STATE) {
+					currentState = MENU_STATE;
 
-			} else {
-				currentState++;
-				System.out.println(currentState);
-				repaint();
+				} else {
+					currentState++;
+					System.out.println(currentState);
+					repaint();
+				}
 			}
-if(currentState == 0 || currentState == 3) {
-		}
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (currentState == INSTRUCTIONS) {
-				currentState = MENU_STATE;
-			} else {
-				currentState = INSTRUCTIONS;
+			if (currentState == 0 || currentState == 3) {
+
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					if (currentState == INSTRUCTIONS) {
+						currentState = MENU_STATE;
+					} else {
+						currentState = INSTRUCTIONS;
+					}
+				}
+			}
+			if (currentState == GAME_STATE) {
+				if (e.getKeyCode() == KeyEvent.VK_1) {
+					sam.addRobotron(750, 400, 25, 25);
+					System.out.println(sam.robotrons);
+				} else if (e.getKeyCode() == KeyEvent.VK_2) {
+					sam.addIronFist(750, 400, 50, 75);
+				} else if (e.getKeyCode() == KeyEvent.VK_3) {
+					System.out.println("Upgrade robots code here");
+				}
+				/*
+				 * else if(e.getKeyCode()==KeyEvent.VK_4) {
+			 System.out.println("Laser shot code here"); }
+				 */
 			}
 		}
 	}
-		if(currentState == 2) {
-			if(e.getKeyCode() == KeyEvent.VK_1) {
-				System.out.println("Robo one spawn code here");
-			}
-			else if(e.getKeyCode()==KeyEvent.VK_2) {
-				System.out.println("Robo 2 spawn code here");
-			}
-			else if(e.getKeyCode()==KeyEvent.VK_2) {
-				System.out.println("Upgrade robots code here");
-			}
-			/*else if(e.getKeyCode()==KeyEvent.VK_4) {
-				System.out.println("Laser shot code here");
-			}
-			*/
-		}
-}
-	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-	
+
 	}
 
 }

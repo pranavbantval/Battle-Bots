@@ -17,7 +17,7 @@ public class Robotron extends GameObject {
 		
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.pink);
-		g.drawRect(x, y, width, height);
+		g.setColor(Color.GREEN);
+		g.fillRect(x, y, width, height);
 		}
 }

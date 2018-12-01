@@ -1,8 +1,7 @@
 /BattleBots.class
-/GamePanel.class
+/Enemy.class
 /GameObject.class
+/GamePanel.class
+/IronFist.class
 /ObjectManager.class
 /Robotron.class
-/IronFist.class
-/Enemy.class
-/Ironfist.class

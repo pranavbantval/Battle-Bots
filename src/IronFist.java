@@ -17,7 +17,7 @@ public class IronFist extends GameObject {
 		
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.blue);
-		g.drawRect(x, y, width, height);
+		g.setColor(Color.white);
+		g.fillRect(x, y, width, height);
 		}
 }
