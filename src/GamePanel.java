@@ -45,6 +45,7 @@ ptimer = new Timer(1000/60, this);
 
 	public void updateGameState() {
 sam.update();
+sam.manageEnemies();
 	}
 
 	public void updateEndState() {
@@ -158,16 +159,16 @@ sam.update();
 			if (currentState == GAME_STATE) {
 				if (e.getKeyCode() == KeyEvent.VK_1) {
 					sam.addRobotron(750, 400, 25, 25);
-					System.out.println(sam.robotrons);
+					
 				} else if (e.getKeyCode() == KeyEvent.VK_2) {
 					sam.addIronFist(750, 400, 50, 75);
 				} else if (e.getKeyCode() == KeyEvent.VK_3) {
 					System.out.println("Upgrade robots code here");
 				}
-				/*
-				 * else if(e.getKeyCode()==KeyEvent.VK_4) {
-			 System.out.println("Laser shot code here"); }
-				 */
+				
+				  else if(e.getKeyCode()==KeyEvent.VK_4) {
+			 sam.addEnemy(100, 400, 30, 30); }
+				 
 			}
 		}
 	}
@@ -175,7 +176,7 @@ sam.update();
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

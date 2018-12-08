@@ -7,14 +7,17 @@ public class Enemy extends GameObject {
 			//constructor
 			public Enemy(int x, int y, int width, int height) {
 				super(x, y, width, height);
-				speed = 7;
+				speed = 2;
+				
 			}
 		//methods
 			
 			public void update() {
 				super.update();
-			y++;
-				
+			x=x+speed;
+			if(enemyBox.intersects(collisionBox)) {
+				isAlive=false;
+			}
 			}
 			void draw(Graphics g) {
 				g.setColor(Color.red);
