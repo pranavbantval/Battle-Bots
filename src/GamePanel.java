@@ -16,7 +16,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	// member variables
 	Timer timer;
-	int currentState = 0;
+	int currentState = 1;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -44,8 +44,11 @@ ptimer = new Timer(1000/60, this);
 	}
 
 	public void updateGameState() {
-sam.update();
+
 sam.manageEnemies();
+sam.checkCollision();
+sam.purgeObjects();
+sam.update();
 	}
 
 	public void updateEndState() {
@@ -133,14 +136,35 @@ sam.manageEnemies();
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (currentState >= 3) {
+		if (currentState == GAME_STATE) {
+				if (e.getKeyCode() == KeyEvent.VK_1) {
+					if(sam.usermoney-sam.rPrice>0) {
+					sam.addRobotron(750, 400, 25, 25);
+					}
+					else {
+						System.out.println("bankrupt!");
+					}
+				} else if (e.getKeyCode() == KeyEvent.VK_2) {
+					if(sam.usermoney-sam.iPrice>0) {
+					sam.addIronFist(750, 400, 50, 75);
+					}
+					else {
+						System.out.println("bankrupt!");
+					}
+				} 
+				
+				  else if(e.getKeyCode()==KeyEvent.VK_4) {
+			 sam.addEnemy(100, 400, 30, 30); }
+				 
+			}
+	/*	if (currentState >= 3) {
 			currentState = 0;
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (currentState == END_STATE) {
 					currentState = MENU_STATE;
 
-				} else {
+				} else if (currentState == GAME_STATE || currentState== MENU_STATE) {
 					currentState++;
 					System.out.println(currentState);
 					repaint();
@@ -156,21 +180,8 @@ sam.manageEnemies();
 					}
 				}
 			}
-			if (currentState == GAME_STATE) {
-				if (e.getKeyCode() == KeyEvent.VK_1) {
-					sam.addRobotron(750, 400, 25, 25);
-					
-				} else if (e.getKeyCode() == KeyEvent.VK_2) {
-					sam.addIronFist(750, 400, 50, 75);
-				} else if (e.getKeyCode() == KeyEvent.VK_3) {
-					System.out.println("Upgrade robots code here");
-				}
-				
-				  else if(e.getKeyCode()==KeyEvent.VK_4) {
-			 sam.addEnemy(100, 400, 30, 30); }
-				 
-			}
-		}
+			
+		}*/
 	}
 
 	@Override
