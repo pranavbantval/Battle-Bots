@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
 	final int INSTRUCTIONS = 3;
+	final int WINNER = -1;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 48);
 	Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 25);
 	ObjectManager sam = new ObjectManager();
@@ -32,7 +33,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 
 	}
-
+public void endGame() {
+	if(sam.playerbase==0) {
+		sam.PurgeAll();
+		currentState=END_STATE;
+	}
+	else if(sam.enemybase<=0) {
+		currentState=WINNER;
+	}
+	
+}
 	// draw/update state methods
 
 	public void updateMenuState() {
@@ -42,10 +52,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateGameState() {
 
 		sam.manageEnemies();
+		sam.BaseDamage();
 		sam.checkCollision();
+		sam.bossCollision();
 		sam.purgeObjects();
 		sam.update();
 		sam.addMoney();
+		endGame();
 	}
 
 	public void updateEndState() {
@@ -95,6 +108,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFont);
+		g.drawString("YOU LOSE", 370,250);
+		g.setFont(subtitleFont);
+		g.drawString("Press ENTER to try again", 370, 300);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -136,18 +154,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState == GAME_STATE) {
 			if (e.getKeyCode() == KeyEvent.VK_1) {
 
-				sam.addRobotron(750, 400, 25, 25);
+				sam.addRobotron(750, 375, 25, 25);
 
 			} else if (e.getKeyCode() == KeyEvent.VK_2) {
 
-				sam.addIronFist(750, 400, 50, 75);
+				sam.addIronFist(750, 325, 50, 75);
 
 			}
 
 			else if (e.getKeyCode() == KeyEvent.VK_4) {
-				sam.addEnemy(100, 400, 30, 30);
+				sam.addEnemy(100, 370, 30, 30);
 			}
-
+			else if(e.getKeyCode()==KeyEvent.VK_7) {
+				sam.addBoss(100, 200, 150, 200);
+			}
 		}
 
 		if (currentState >= 3) {
@@ -155,9 +175,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (currentState == END_STATE) {
+				
 					currentState = MENU_STATE;
 
-				} else if (currentState == GAME_STATE || currentState == MENU_STATE) {
+				} else if (currentState == GAME_STATE || currentState == MENU_STATE||currentState==-1) {
 					currentState++;
 					System.out.println(currentState);
 					repaint();

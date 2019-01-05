@@ -12,7 +12,7 @@ public class Boss extends GameObject {
 
 	public void update() {
 		super.update();
-		x = x - speed;
+		x = x + speed;
 	}
 
 	public void draw(Graphics g) {
