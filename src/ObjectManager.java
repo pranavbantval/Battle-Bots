@@ -12,13 +12,15 @@ public class ObjectManager {
 	int usermoney = 100;
 	int rPrice = 15;
 	int iPrice = 40;
-	int bounty = 20;
-	
-	int playerbase=100;
-	int enemybase=100;
-int bossHP = 200;
-int slowly = 1;
-int slowness=2;
+	int bounty = 25;
+
+	int playerbase = 100;
+	int enemybase = 150;
+	int bossHP = 200;
+	int slowly = 1;
+	int slowness = 2;
+	int one = 0;
+
 	// constructor
 	public ObjectManager() {
 
@@ -38,18 +40,11 @@ int slowness=2;
 		for (Enemy enemy : enemies) {
 			enemy.update();
 		}
-	
+
 		for (Boss boss : bosses) {
 			boss.update();
 		}
-		/*LOOK HERE FOR GOALS
-		 * 1.test money system slowness/slowly, bounty
-		 * 2.Create winner screen
-		 * 3.add usermoney to the game so the number is displayed on the screen
-		 * 4.add the base healths to the game so the numbers are displayed on the screen
-		 * 5.add images
-		 * 6.play/test
-		 */
+
 		System.out.println(usermoney);
 	}
 
@@ -73,17 +68,17 @@ int slowness=2;
 	}
 
 	public void addMoney() {
-	
+
 		slowly++;
-		if(slowly%slowness==0) {
-		usermoney++;
+		if (slowly % slowness == 0) {
+			usermoney++;
 		}
-		if(usermoney>=1000) {
-			slowness=4;
+		if (usermoney >= 1000) {
+			slowness = 10;
+		} else if (usermoney <= 750) {
+			slowness = 2;
 		}
-		else if(usermoney<=750) {
-			slowness=2;
-		}
+		// System.out.println(usermoney);
 	}
 
 	public void addRobotron(int x, int y, int width, int height) {
@@ -152,9 +147,8 @@ int slowness=2;
 		for (int k = 0; k < bosses.size(); k++) {
 
 			if (!(bosses.get(k).isAlive)) {
-				usermoney=usermoney+100000;
+				usermoney = usermoney + 100000;
 				bosses.remove(k);
-	
 
 			}
 		}
@@ -189,18 +183,18 @@ int slowness=2;
 		for (Boss boss : bosses) {
 			for (Robotron robotron : robotrons) {
 				if (robotron.collisionBox.intersects(boss.collisionBox)) {
-					robotron.isAlive=false;
-					bossHP=bossHP-1;
+					robotron.isAlive = false;
+					bossHP = bossHP - 1;
 				}
 			}
 			for (IronFist ironfist : ironfists) {
 				if (ironfist.collisionBox.intersects(boss.collisionBox)) {
-					ironfist.isAlive=false;
-					bossHP=bossHP-3;
+					ironfist.isAlive = false;
+					bossHP = bossHP - 3;
 				}
 			}
-			if(bossHP<=0) {
-				boss.isAlive=false;
+			if (bossHP <= 0) {
+				boss.isAlive = false;
 			}
 		}
 	}
@@ -208,32 +202,40 @@ int slowness=2;
 	public void BaseDamage() {
 		for (Enemy enemy : enemies) {
 			if (enemy.x > 770) {
-				playerbase--;
+				playerbase = playerbase - 2;
 				enemy.isAlive = false;
+				usermoney = usermoney - bounty;
 			}
 		}
 		for (IronFist ironfist : ironfists) {
 			if (ironfist.x < 200) {
 				ironfist.isAlive = false;
-				enemybase=enemybase-2;
+				enemybase = enemybase - 3;
+
 			}
 		}
 		for (Robotron robotron : robotrons) {
 			if (robotron.x < 200) {
 				robotron.isAlive = false;
-				enemybase=enemybase-1;
+				enemybase = enemybase - 1;
 			}
 		}
 		for (Boss boss : bosses) {
 			if (boss.x > 650) {
-				playerbase=0;
+				playerbase = 0;
 			}
 		}
-
+		// System.out.println(enemybase);
 	}
+
 	public void spawnBoss() {
-		if(enemybase<=50) {
-			addBoss(100, 200, 150, 200);
+		if (enemybase <= 70) {
+			if (bosses.size() == 0) {
+				if (one == 0) {
+					addBoss(100, 200, 150, 200);
+					one++;
+				}
+			}
 		}
 	}
 
@@ -253,5 +255,14 @@ int slowness=2;
 			ironfists.remove(k);
 
 		}
+		for (int l = 0; l < bosses.size(); l++) {
+			bosses.remove(l);
+		}
+		playerbase = 100;
+		enemybase = 150;
+		slowly = 1;
+		slowness = 2;
+		usermoney = 100;
+		bossHP = 200;
 	}
 }

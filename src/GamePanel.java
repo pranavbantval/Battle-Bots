@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	// member variables
 	Timer timer;
-	int currentState = 1;
+	int currentState = 0;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -33,16 +33,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 
 	}
-public void endGame() {
-	if(sam.playerbase==0) {
-		sam.PurgeAll();
-		currentState=END_STATE;
+
+	public void endGame() {
+		if (sam.playerbase == 0) {
+			sam.PurgeAll();
+			currentState = END_STATE;
+		} else if (sam.enemybase <= 0) {
+			currentState = WINNER;
+		}
+
 	}
-	else if(sam.enemybase<=0) {
-		currentState=WINNER;
-	}
-	
-}
 	// draw/update state methods
 
 	public void updateMenuState() {
@@ -53,6 +53,7 @@ public void endGame() {
 
 		sam.manageEnemies();
 		sam.BaseDamage();
+		sam.spawnBoss();
 		sam.checkCollision();
 		sam.bossCollision();
 		sam.purgeObjects();
@@ -86,8 +87,8 @@ public void endGame() {
 		g.setFont(subtitleFont);
 		g.setColor(Color.BLACK);
 		g.drawString("Press keys 1 and 2 to buy robots ", 320, 200);
-		g.drawString("Press key 3 to upgrade the robots", 320, 300);
-		g.drawString("Press SPACE to return", 370, 400);
+
+		g.drawString("Press SPACE to return", 370, 300);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -103,6 +104,11 @@ public void endGame() {
 		g.setColor(Color.green);
 		g.fillRect(350, 450, 50, 50);
 		sam.draw(g);
+		g.setFont(subtitleFont);
+		g.setColor(Color.black);
+		g.drawString("$" + String.valueOf(sam.usermoney), 900, 20);
+		g.drawString(String.valueOf(sam.enemybase) + "/150", 100, 175);
+		g.drawString(String.valueOf(sam.playerbase) + "/100", 800, 175);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -110,9 +116,21 @@ public void endGame() {
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
-		g.drawString("YOU LOSE", 370,250);
+		g.drawString("YOU LOSE", 370, 250);
 		g.setFont(subtitleFont);
 		g.drawString("Press ENTER to try again", 370, 300);
+	}
+
+	public void drawWinnerState(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFont);
+		g.drawString("WOW, YOU WON :D", 330, 250);
+		g.drawString("THANKS FOR PLAYING.", 250, 300);
+		g.setFont(subtitleFont);
+		g.drawString("Press ENTER to return to menu", 360, 350);
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -124,6 +142,8 @@ public void endGame() {
 			drawEndState(g);
 		} else if (currentState == INSTRUCTIONS) {
 			drawInstructions(g);
+		} else if (currentState == WINNER) {
+			drawWinnerState(g);
 		}
 	}
 
@@ -164,8 +184,7 @@ public void endGame() {
 
 			else if (e.getKeyCode() == KeyEvent.VK_4) {
 				sam.addEnemy(100, 370, 30, 30);
-			}
-			else if(e.getKeyCode()==KeyEvent.VK_7) {
+			} else if (e.getKeyCode() == KeyEvent.VK_7) {
 				sam.addBoss(100, 200, 150, 200);
 			}
 		}
@@ -175,10 +194,10 @@ public void endGame() {
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (currentState == END_STATE) {
-				
+
 					currentState = MENU_STATE;
 
-				} else if (currentState == GAME_STATE || currentState == MENU_STATE||currentState==-1) {
+				} else if (currentState == GAME_STATE || currentState == MENU_STATE || currentState == WINNER) {
 					currentState++;
 					System.out.println(currentState);
 					repaint();
