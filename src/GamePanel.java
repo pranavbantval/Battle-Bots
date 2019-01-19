@@ -38,7 +38,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (sam.playerbase == 0) {
 			sam.PurgeAll();
 			currentState = END_STATE;
-		} else if (sam.enemybase <= 0) {
+		} 
+		
+		else if (sam.enemybase <= 0) {
+		sam.PurgeAll();
 			currentState = WINNER;
 		}
 
@@ -193,11 +196,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = 0;
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				if (currentState == END_STATE) {
-
+				if (currentState == END_STATE||currentState==WINNER) {
+sam.PurgeAll();
 					currentState = MENU_STATE;
 
-				} else if (currentState == GAME_STATE || currentState == MENU_STATE || currentState == WINNER) {
+				} else if (currentState == GAME_STATE || currentState == MENU_STATE) {
 					currentState++;
 					System.out.println(currentState);
 					repaint();

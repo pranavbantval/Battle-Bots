@@ -9,7 +9,7 @@ public class ObjectManager {
 	ArrayList<Boss> bosses = new ArrayList<Boss>();
 	long enemyTimer = 0;
 	int enemySpawnTime = 2000;
-	int usermoney = 100;
+	int usermoney = 1054230;
 	int rPrice = 15;
 	int iPrice = 40;
 	int bounty = 25;
@@ -18,7 +18,7 @@ public class ObjectManager {
 	int enemybase = 150;
 	int bossHP = 200;
 	int slowly = 1;
-	int slowness = 2;
+	int slowness = 1;
 	int one = 0;
 
 	// constructor
@@ -45,7 +45,7 @@ public class ObjectManager {
 			boss.update();
 		}
 
-		System.out.println(usermoney);
+		
 	}
 
 	public void draw(Graphics g) {
@@ -73,9 +73,9 @@ public class ObjectManager {
 		if (slowly % slowness == 0) {
 			usermoney++;
 		}
-		if (usermoney >= 1000) {
+		if (usermoney >= 3000) {
 			slowness = 10;
-		} else if (usermoney <= 750) {
+		} else if (usermoney <= 2550) {
 			slowness = 2;
 		}
 		// System.out.println(usermoney);
@@ -240,24 +240,19 @@ public class ObjectManager {
 	}
 
 	public void PurgeAll() {
-		for (int i = 0; i < robotrons.size(); i++) {
-
-			robotrons.remove(i);
-
+		for (Boss boss : bosses) {
+			boss.isAlive=false;
 		}
-		for (int j = 0; j < enemies.size(); j++) {
-
-			enemies.remove(j);
-
+		for (Enemy enemy : enemies) {
+			enemy.isAlive=false;
 		}
-		for (int k = 0; k < ironfists.size(); k++) {
-
-			ironfists.remove(k);
-
+		for (Robotron robotron : robotrons) {
+			robotron.isAlive=false;
 		}
-		for (int l = 0; l < bosses.size(); l++) {
-			bosses.remove(l);
+		for (IronFist ironfist : ironfists) {
+			ironfist.isAlive=false;
 		}
+		purgeObjects();
 		playerbase = 100;
 		enemybase = 150;
 		slowly = 1;
