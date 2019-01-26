@@ -21,8 +21,7 @@ public class Boss extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(x, y, width, height);
+		 g.drawImage(GamePanel.enemybossImg, x, y, width, height, null);
 	}
 
 }

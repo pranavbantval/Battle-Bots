@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -22,10 +25,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font subtitleFont = new Font("Times New Roman", Font.PLAIN, 25);
 	ObjectManager sam = new ObjectManager();
 
+	public static BufferedImage enemyImg;
+	public static BufferedImage robotronImg;
+	public static BufferedImage ironbotImg;
+	public static BufferedImage enemybossImg;
 	// constructor
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
-
+		try {
+			enemyImg = ImageIO.read(this.getClass().getResourceAsStream("enemy.png"));
+			robotronImg = ImageIO.read(this.getClass().getResourceAsStream("robotron.jpg"));
+			ironbotImg = ImageIO.read(this.getClass().getResourceAsStream("ironbot.png"));
+			enemybossImg = ImageIO.read(this.getClass().getResourceAsStream("enemy boss.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// methods
