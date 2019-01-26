@@ -33,10 +33,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		try {
-			enemyImg = ImageIO.read(this.getClass().getResourceAsStream("enemy.png"));
-			robotronImg = ImageIO.read(this.getClass().getResourceAsStream("robotron.jpg"));
-			ironbotImg = ImageIO.read(this.getClass().getResourceAsStream("ironbot.png"));
-			enemybossImg = ImageIO.read(this.getClass().getResourceAsStream("enemy boss.jpg"));
+			enemyImg = ImageIO.read(this.getClass().getResourceAsStream("1enemy.png"));
+			robotronImg = ImageIO.read(this.getClass().getResourceAsStream("1robotron.png"));
+			ironbotImg = ImageIO.read(this.getClass().getResourceAsStream("1ironbot.png"));
+			enemybossImg = ImageIO.read(this.getClass().getResourceAsStream("1enemy boss.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
