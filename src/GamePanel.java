@@ -29,14 +29,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage robotronImg;
 	public static BufferedImage ironbotImg;
 	public static BufferedImage enemybossImg;
+	public static BufferedImage enemybaseImg;
+	public static BufferedImage botbaseImg;
+	public static BufferedImage background;
 	// constructor
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		try {
+			enemybaseImg = ImageIO.read(this.getClass().getResourceAsStream("1EnemyBase.png"));
 			enemyImg = ImageIO.read(this.getClass().getResourceAsStream("1enemy.png"));
 			robotronImg = ImageIO.read(this.getClass().getResourceAsStream("1robotron.png"));
 			ironbotImg = ImageIO.read(this.getClass().getResourceAsStream("1ironbot.png"));
-			enemybossImg = ImageIO.read(this.getClass().getResourceAsStream("1enemy boss.jpg"));
+			enemybossImg = ImageIO.read(this.getClass().getResourceAsStream("1enemy boss.png"));
+			botbaseImg = ImageIO.read(this.getClass().getResourceAsStream("1BotBase.png"));
+			background = ImageIO.read(this.getClass().getResourceAsStream("Background.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +107,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawInstructions(Graphics g) {
 		g.setColor(Color.green);
+		
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(subtitleFont);
 		g.setColor(Color.BLACK);
@@ -111,22 +118,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
+		g.drawImage(background,0, 0, BattleBots.WIDTH, BattleBots.HEIGHT, null);
 		g.setColor(Color.BLUE);
-		g.fillRect(800, 180, 100, 300);
-		g.fillRect(100, 180, 100, 300);
-		g.setColor(Color.WHITE);
-		g.fillRect(410, 450, 50, 50);
-		g.setColor(Color.black);
-		g.fillRect(510, 450, 50, 50);
-		g.setColor(Color.green);
-		g.fillRect(350, 450, 50, 50);
+		g.drawImage(botbaseImg, 600, 180, 500, 300,null);
+		g.drawImage(enemybaseImg, 100, 160, 150, 300,null);
 		sam.draw(g);
 		g.setFont(subtitleFont);
-		g.setColor(Color.black);
-		g.drawString("$" + String.valueOf(sam.usermoney), 900, 20);
-		g.drawString(String.valueOf(sam.enemybase) + "/150", 100, 175);
-		g.drawString(String.valueOf(sam.playerbase) + "/100", 800, 175);
+		g.setColor(Color.white);
+		g.drawString("$" + String.valueOf(sam.usermoney), 880, 30);
+		g.drawString(String.valueOf(sam.enemybase) + "/150", 100, 150);
+		g.drawString(String.valueOf(sam.playerbase) + "/100", 800, 150);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -192,18 +193,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState == GAME_STATE) {
 			if (e.getKeyCode() == KeyEvent.VK_1) {
 
-				sam.addRobotron(750, 375, 25, 25);
+				sam.addRobotron(750, 390, 75, 75);
 
 			} else if (e.getKeyCode() == KeyEvent.VK_2) {
 
-				sam.addIronFist(750, 325, 50, 75);
+				sam.addIronFist(750, 325, 100, 150);
 
 			}
 
 			else if (e.getKeyCode() == KeyEvent.VK_4) {
-				sam.addEnemy(100, 370, 30, 30);
+				sam.addEnemy(100, 375, 100, 100);
 			} else if (e.getKeyCode() == KeyEvent.VK_7) {
-				sam.addBoss(100, 200, 150, 200);
+				sam.addBoss(100, 200, 300, 300);
 			}
 		}
 

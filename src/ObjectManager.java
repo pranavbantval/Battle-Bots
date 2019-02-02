@@ -111,8 +111,8 @@ public class ObjectManager {
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
 
-			enemies.add(new Enemy(100, 370, 30, 30));
-			enemies.add(new Enemy(50, 370, 30, 30));
+			enemies.add(new Enemy(100, 370, 100, 100));
+			enemies.add(new Enemy(50, 370, 100, 100));
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
@@ -232,7 +232,7 @@ public class ObjectManager {
 		if (enemybase <= 70) {
 			if (bosses.size() == 0) {
 				if (one == 0) {
-					addBoss(100, 200, 150, 200);
+					addBoss(100, 300, 200, 200);
 					one++;
 				}
 			}
