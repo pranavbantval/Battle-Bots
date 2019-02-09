@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage enemybaseImg;
 	public static BufferedImage botbaseImg;
 	public static BufferedImage background;
+
 	// constructor
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -57,12 +58,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void endGame() {
 		if (sam.playerbase == 0) {
+			sam.playSound("Failure.wav");
 			sam.PurgeAll();
 			currentState = END_STATE;
-		} 
-		
+		}
+
 		else if (sam.enemybase <= 0) {
-		sam.PurgeAll();
+			sam.playSound("Victory.wav");
+			sam.PurgeAll();
 			currentState = WINNER;
 		}
 
@@ -99,7 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("BATTLE BOTS", 340, 200);
+		g.drawString("ROBOT TOWER DEFENSE", 230, 200);
 		g.setFont(subtitleFont);
 		g.drawString("Press ENTER to start", 375, 300);
 		g.drawString("Press SPACE for instructions", 345, 400);
@@ -107,7 +110,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawInstructions(Graphics g) {
 		g.setColor(Color.green);
-		
+
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(subtitleFont);
 		g.setColor(Color.BLACK);
@@ -118,10 +121,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.ORANGE);
-		g.drawImage(background,0, 0, BattleBots.WIDTH, BattleBots.HEIGHT, null);
+		g.drawImage(background, 0, 0, BattleBots.WIDTH, BattleBots.HEIGHT, null);
 		g.setColor(Color.BLUE);
-		g.drawImage(botbaseImg, 600, 180, 500, 300,null);
-		g.drawImage(enemybaseImg, 100, 160, 150, 300,null);
+		g.drawImage(botbaseImg, 600, 180, 500, 300, null);
+		g.drawImage(enemybaseImg, 100, 160, 150, 300, null);
 		sam.draw(g);
 		g.setFont(subtitleFont);
 		g.setColor(Color.white);
@@ -212,13 +215,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = 0;
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				if (currentState == END_STATE||currentState==WINNER) {
-sam.PurgeAll();
+				if (currentState == END_STATE || currentState == WINNER) {
+					sam.PurgeAll();
+					
 					currentState = MENU_STATE;
 
-				} else if (currentState == GAME_STATE || currentState == MENU_STATE) {
+				} else if (currentState == MENU_STATE) {
 					currentState++;
-					System.out.println(currentState);
+					// System.out.println(currentState);
+					repaint();
+				} else if (currentState == GAME_STATE) {
+					currentState++;
+					sam.playSound("Failure.wav");
 					repaint();
 				}
 			}

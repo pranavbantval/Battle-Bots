@@ -1,5 +1,9 @@
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.JApplet;
 
 public class ObjectManager {
 	// member variables
@@ -13,14 +17,14 @@ public class ObjectManager {
 	int rPrice = 15;
 	int iPrice = 40;
 	int bounty = 25;
-
+Random enemyRoll = new Random();
 	int playerbase = 100;
 	int enemybase = 150;
 	int bossHP = 200;
 	int slowly = 1;
 	int slowness = 1;
 	int one = 0;
-
+int enemys;
 	// constructor
 	public ObjectManager() {
 
@@ -110,9 +114,20 @@ public class ObjectManager {
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-
-			enemies.add(new Enemy(100, 370, 100, 100));
-			enemies.add(new Enemy(50, 370, 100, 100));
+enemys = enemyRoll.nextInt(3)+1;
+for (int i = 0; i < enemys; i++) {
+	if(i == 0) {
+	enemies.add(new Enemy(100, 370, 100, 100));
+	}
+	else if(i == 1) {
+		enemies.add(new Enemy(50, 370, 100, 100));
+	}
+	else if(i == 2) {
+		enemies.add(new Enemy(150, 370, 100, 100));
+	}
+}
+			
+	
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
@@ -203,6 +218,7 @@ public class ObjectManager {
 		for (Enemy enemy : enemies) {
 			if (enemy.x > 770) {
 				playerbase = playerbase - 2;
+				playSound("OW.wav");
 				enemy.isAlive = false;
 				usermoney = usermoney - bounty;
 			}
@@ -230,7 +246,7 @@ public class ObjectManager {
 
 	public void spawnBoss() {
 		if (enemybase <= 70) {
-			if (bosses.size() == 0) {
+			if (bosses.size() <= 0) {
 				if (one == 0) {
 					addBoss(100, 300, 200, 200);
 					one++;
@@ -259,5 +275,10 @@ public class ObjectManager {
 		slowness = 2;
 		usermoney = 100;
 		bossHP = 200;
+		one=0;
+	}
+	public void playSound(String fileName) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		sound.play();
 	}
 }
