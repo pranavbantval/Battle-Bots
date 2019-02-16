@@ -207,7 +207,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			else if (e.getKeyCode() == KeyEvent.VK_4) {
 				sam.addEnemy(100, 375, 100, 100);
 			} else if (e.getKeyCode() == KeyEvent.VK_7) {
-				sam.addBoss(100, 200, 300, 300);
+				sam.addBoss(100, 290, 200, 200);
 			}
 		}
 

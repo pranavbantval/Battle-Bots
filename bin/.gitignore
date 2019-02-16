@@ -8,11 +8,11 @@
 /BattleBots.class
 /Boss.class
 /Enemy.class
+/Failure.wav
 /GameObject.class
 /GamePanel.class
 /IronFist.class
+/OW.wav
 /ObjectManager.class
 /Robotron.class
-/Failure.wav
 /Victory.wav
-/OW.wav

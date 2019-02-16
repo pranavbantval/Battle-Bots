@@ -12,6 +12,7 @@ public class IronFist extends GameObject {
 		speed = 1;
 	
 	}
+
 //methods
 	
 	public void update() {

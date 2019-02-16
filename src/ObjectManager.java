@@ -248,7 +248,7 @@ for (int i = 0; i < enemys; i++) {
 		if (enemybase <= 70) {
 			if (bosses.size() <= 0) {
 				if (one == 0) {
-					addBoss(100, 300, 200, 200);
+					addBoss(200, 300, 200, 200);
 					one++;
 				}
 			}
