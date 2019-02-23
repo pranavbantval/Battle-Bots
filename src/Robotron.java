@@ -2,25 +2,25 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Robotron extends GameObject {
-//member variables
+	// member variables
 	Integer speed;
-	
-	//constructor
+
+	// constructor
 	public Robotron(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speed = 3;
-		
+
 	}
-//methods
-	
+	// methods
+
 	public void update() {
 		super.update();
-	x=x-speed;
-	
-		
+		x = x - speed;
+
 	}
+
 	void draw(Graphics g) {
-		 g.drawImage(GamePanel.robotronImg, x, y, width, height, null);
-		
-		}
+		g.drawImage(GamePanel.robotronImg, x, y, width, height, null);
+
+	}
 }

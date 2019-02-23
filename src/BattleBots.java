@@ -1,5 +1,4 @@
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
 
 public class BattleBots {
@@ -28,7 +27,6 @@ public class BattleBots {
 
 	public void createUI() {
 		setup();
-		
 
 	}
 

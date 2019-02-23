@@ -21,7 +21,7 @@ public class Boss extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		 g.drawImage(GamePanel.enemybossImg, x, y, width, height, null);
+		g.drawImage(GamePanel.enemybossImg, x, y, width, height, null);
 	}
 
 }

@@ -114,9 +114,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(subtitleFont);
 		g.setColor(Color.BLACK);
+		g.drawString("Try to defeat the boss", 380, 50);
+		g.drawString("BIG CHUNGUS", 400, 100);
+		g.drawString("From taking over the world!", 350, 150);
 		g.drawString("Press keys 1 and 2 to buy robots ", 320, 200);
+g.drawString("Robot 1 costs less money and is faster", 300, 250);
 
-		g.drawString("Press SPACE to return", 370, 300);
+g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190, 300);
+		g.drawString("Press SPACE to return", 370, 350);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -126,6 +131,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawImage(botbaseImg, 600, 180, 500, 300, null);
 		g.drawImage(enemybaseImg, 100, 160, 150, 300, null);
 		sam.draw(g);
+
 		g.setFont(subtitleFont);
 		g.setColor(Color.white);
 		g.drawString("$" + String.valueOf(sam.usermoney), 880, 30);
@@ -214,6 +220,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState >= 3) {
 			currentState = 0;
 		} else {
+
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (currentState == END_STATE || currentState == WINNER) {
 					sam.PurgeAll();
@@ -235,6 +242,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					if (currentState == INSTRUCTIONS) {
 						currentState = MENU_STATE;
+
 					} else {
 						currentState = INSTRUCTIONS;
 					}
@@ -252,3 +260,5 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 }
+
+

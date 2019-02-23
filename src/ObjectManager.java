@@ -13,18 +13,19 @@ public class ObjectManager {
 	ArrayList<Boss> bosses = new ArrayList<Boss>();
 	long enemyTimer = 0;
 	int enemySpawnTime = 2000;
-	int usermoney = 1054230;
-	int rPrice = 15;
-	int iPrice = 40;
-	int bounty = 25;
-Random enemyRoll = new Random();
+	int usermoney = 1000;
+	int rPrice = 20;
+	int iPrice = 60;
+	int bounty = 50;
+	Random enemyRoll = new Random();
 	int playerbase = 100;
 	int enemybase = 150;
 	int bossHP = 200;
 	int slowly = 1;
 	int slowness = 1;
 	int one = 0;
-int enemys;
+	int enemys;
+
 	// constructor
 	public ObjectManager() {
 
@@ -49,7 +50,6 @@ int enemys;
 			boss.update();
 		}
 
-		
 	}
 
 	public void draw(Graphics g) {
@@ -77,9 +77,9 @@ int enemys;
 		if (slowly % slowness == 0) {
 			usermoney++;
 		}
-		if (usermoney >= 3000) {
+		if (usermoney >= 10000) {
 			slowness = 10;
-		} else if (usermoney <= 2550) {
+		} else if (usermoney <= 9000) {
 			slowness = 2;
 		}
 		// System.out.println(usermoney);
@@ -114,20 +114,17 @@ int enemys;
 
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-enemys = enemyRoll.nextInt(3)+1;
-for (int i = 0; i < enemys; i++) {
-	if(i == 0) {
-	enemies.add(new Enemy(100, 370, 100, 100));
-	}
-	else if(i == 1) {
-		enemies.add(new Enemy(50, 370, 100, 100));
-	}
-	else if(i == 2) {
-		enemies.add(new Enemy(150, 370, 100, 100));
-	}
-}
-			
-	
+			enemys = enemyRoll.nextInt(3) + 1;
+			for (int i = 0; i < enemys; i++) {
+				if (i == 0) {
+					enemies.add(new Enemy(100, 370, 100, 100));
+				} else if (i == 1) {
+					enemies.add(new Enemy(50, 370, 100, 100));
+				} else if (i == 2) {
+					enemies.add(new Enemy(150, 370, 100, 100));
+				}
+			}
+
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
@@ -257,16 +254,16 @@ for (int i = 0; i < enemys; i++) {
 
 	public void PurgeAll() {
 		for (Boss boss : bosses) {
-			boss.isAlive=false;
+			boss.isAlive = false;
 		}
 		for (Enemy enemy : enemies) {
-			enemy.isAlive=false;
+			enemy.isAlive = false;
 		}
 		for (Robotron robotron : robotrons) {
-			robotron.isAlive=false;
+			robotron.isAlive = false;
 		}
 		for (IronFist ironfist : ironfists) {
-			ironfist.isAlive=false;
+			ironfist.isAlive = false;
 		}
 		purgeObjects();
 		playerbase = 100;
@@ -275,8 +272,9 @@ for (int i = 0; i < enemys; i++) {
 		slowness = 2;
 		usermoney = 100;
 		bossHP = 200;
-		one=0;
+		one = 0;
 	}
+
 	public void playSound(String fileName) {
 		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
 		sound.play();
