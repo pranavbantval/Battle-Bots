@@ -19,13 +19,13 @@ public class ObjectManager {
 	int bounty = 50;
 	Random enemyRoll = new Random();
 	int playerbase = 100;
-	int enemybase = 150;
-	int bossHP = 200;
+	int enemybase = 200;
+	int bossHP = 100;
 	int slowly = 1;
 	int slowness = 1;
 	int one = 0;
 	int enemys;
-
+	
 	// constructor
 	public ObjectManager() {
 
@@ -113,8 +113,9 @@ public class ObjectManager {
 	}
 
 	public void manageEnemies() {
+		if(one==0) {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			enemys = enemyRoll.nextInt(3) + 1;
+			enemys = enemyRoll.nextInt(5) + 1;
 			for (int i = 0; i < enemys; i++) {
 				if (i == 0) {
 					enemies.add(new Enemy(100, 370, 100, 100));
@@ -123,8 +124,32 @@ public class ObjectManager {
 				} else if (i == 2) {
 					enemies.add(new Enemy(150, 370, 100, 100));
 				}
+				else if (i == 3) {
+					enemies.add(new Enemy(200, 370, 100, 100));
+				}
+				else if (i == 4) {
+					enemies.add(new Enemy(250, 370, 100, 100));
+				}
 			}
 
+			enemyTimer = System.currentTimeMillis();
+		}
+		}
+		
+		else if (one==1) {
+			if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
+				enemys = enemyRoll.nextInt(5) + 1;
+				for (int i = 0; i < enemys; i++) {
+					if (i == 0) {
+						enemies.add(new Enemy(100, 370, 100, 100));
+					} else if (i == 1) {
+						enemies.add(new Enemy(50, 370, 100, 100));
+					} else if (i == 2) {
+						enemies.add(new Enemy(150, 370, 100, 100));
+					}
+		}
+			
+	}
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
@@ -242,7 +267,7 @@ public class ObjectManager {
 	}
 
 	public void spawnBoss() {
-		if (enemybase <= 70) {
+		if (enemybase <= 150) {
 			if (bosses.size() <= 0) {
 				if (one == 0) {
 					addBoss(200, 300, 200, 200);
@@ -267,11 +292,11 @@ public class ObjectManager {
 		}
 		purgeObjects();
 		playerbase = 100;
-		enemybase = 150;
+		enemybase = 200;
 		slowly = 1;
-		slowness = 2;
-		usermoney = 100;
-		bossHP = 200;
+		slowness = 1;
+		usermoney = 1000;
+		bossHP =100;
 		one = 0;
 	}
 

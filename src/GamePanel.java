@@ -59,13 +59,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void endGame() {
 		if (sam.playerbase == 0) {
 			sam.playSound("Failure.wav");
-			sam.PurgeAll();
+			
 			currentState = END_STATE;
 		}
 
 		else if (sam.enemybase <= 0) {
 			sam.playSound("Victory.wav");
-			sam.PurgeAll();
+			
 			currentState = WINNER;
 		}
 
@@ -135,7 +135,7 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 		g.setFont(subtitleFont);
 		g.setColor(Color.white);
 		g.drawString("$" + String.valueOf(sam.usermoney), 880, 30);
-		g.drawString(String.valueOf(sam.enemybase) + "/150", 100, 150);
+		g.drawString(String.valueOf(sam.enemybase) + "/200", 100, 150);
 		g.drawString(String.valueOf(sam.playerbase) + "/100", 800, 150);
 	}
 
@@ -147,6 +147,7 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 		g.drawString("YOU LOSE", 370, 250);
 		g.setFont(subtitleFont);
 		g.drawString("Press ENTER to try again", 370, 300);
+		g.drawString("BOSS HP: "+sam.bossHP+"%", 370, 350);
 	}
 
 	public void drawWinnerState(Graphics g) {
@@ -223,10 +224,10 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if (currentState == END_STATE || currentState == WINNER) {
-					sam.PurgeAll();
+					
 					
 					currentState = MENU_STATE;
-
+					sam.PurgeAll();
 				} else if (currentState == MENU_STATE) {
 					currentState++;
 					// System.out.println(currentState);
