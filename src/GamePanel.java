@@ -135,8 +135,8 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 		g.setFont(subtitleFont);
 		g.setColor(Color.white);
 		g.drawString("$" + String.valueOf(sam.usermoney), 880, 30);
-		g.drawString(String.valueOf(sam.enemybase) + "/200", 100, 150);
-		g.drawString(String.valueOf(sam.playerbase) + "/100", 800, 150);
+		g.drawString(String.valueOf(sam.enemybase) + "/"+(sam.enemybase), 100, 150);
+		g.drawString(String.valueOf(sam.playerbase) + "/"+(sam.playerbase), 800, 150);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -207,7 +207,7 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 
 			} else if (e.getKeyCode() == KeyEvent.VK_2) {
 
-				sam.addIronFist(750, 325, 100, 150);
+				sam.addIronFist(750, 325, 100, 150,3);
 
 			}
 

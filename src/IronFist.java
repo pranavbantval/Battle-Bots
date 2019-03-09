@@ -1,13 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class IronFist extends GameObject {
+public class IronFist extends GameObject2 {
 	// member variables
 	Integer speed;
 
 	// constructor
-	public IronFist(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public IronFist(int x, int y, int width, int height,int hp) {
+		super(x, y, width, height,hp);
 		speed = 1;
 
 	}
