@@ -147,7 +147,7 @@ g.drawString("Robot 2 costs more money, but does triple damage to the boss", 190
 		g.drawString("YOU LOSE", 370, 250);
 		g.setFont(subtitleFont);
 		g.drawString("Press ENTER to try again", 370, 300);
-		g.drawString("BOSS HP: "+sam.bossHP+"%", 370, 350);
+		g.drawString("BOSS HP: "+sam.bossHP*100/120+"%", 370, 350);
 	}
 
 	public void drawWinnerState(Graphics g) {

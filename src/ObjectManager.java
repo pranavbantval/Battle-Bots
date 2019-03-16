@@ -20,7 +20,7 @@ public class ObjectManager {
 	Random enemyRoll = new Random();
 	int playerbase = 150;
 	int enemybase = 200;
-	int bossHP = 120;
+	int bossHP = 10;
 	int slowly = 1;
 	int slowness = 1;
 	int one = 0;
