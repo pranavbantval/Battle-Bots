@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, BattleBots.WIDTH, BattleBots.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("ROBOT TOWER DEFENSE", 230, 200);
+		g.drawString("ROBOT DEFENSE", 290, 200);
 		g.setFont(subtitleFont);
 		g.drawString("Press ENTER to start", 375, 300);
 		g.drawString("Press SPACE for instructions", 345, 400);
